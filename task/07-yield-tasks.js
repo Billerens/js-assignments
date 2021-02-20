@@ -63,7 +63,7 @@ function* getFibonacciSequence() {
   let fib2 = 1;
 
   while (true) {
-    var current = fib1;
+    let current = fib1;
     fib1 = fib2;
     fib2 = current + fib1;
     yield current;
@@ -167,10 +167,10 @@ function* breadthTraversalTree(root) {
  *   [ 1, 3, 5, ... ], [ -1 ] => [ -1, 1, 3, 5, ...]
  */
 function* mergeSortedSequences(source1, source2) {
-  var src1 = source1();
-  var src2 = source2();
-  var num1 = src1.next();
-  var num2 = src2.next();
+  let src1 = source1();
+  let src2 = source2();
+  let num1 = src1.next();
+  let num2 = src2.next();
   do {
     if (num2.done || num1.value < num2.value) {
       yield num1.value;

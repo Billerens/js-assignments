@@ -52,7 +52,7 @@ function generateOdds(len) {
  *    [] => []
  */
 function doubleArray(arr) {
-  return new Array(2).fill(arr).reduce((acc, val) => acc.concat(val), []); //as an equivalent for flat()
+  return arr.concat(arr);
 }
 
 /**
@@ -227,7 +227,7 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
-  var newArr = [];
+  let newArr = [];
   arr.reduce((acc, current, index) => (newArr[index] = acc + current), 0);
   return newArr;
 }
@@ -245,7 +245,7 @@ function getMovingSum(arr) {
  */
 function getSecondItems(arr) {
   return arr.filter((item, index) => {
-    return index % 2 != 0 ? true : false;
+    return index % 2;
   });
 }
 

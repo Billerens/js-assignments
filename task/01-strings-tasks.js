@@ -126,8 +126,10 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-  var foundIndex = str.indexOf(value);
-  return str.slice(0, foundIndex) + str.slice(foundIndex + value.length);
+  return (
+    str.slice(0, str.indexOf(value)) +
+    str.slice(str.indexOf(value) + value.length)
+  );
 }
 
 /**
@@ -197,17 +199,10 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  var up = "┌",
-    center = "│",
-    down = "└",
-    rect = "";
-  up += "─".repeat(width - 2) + "┐\n";
-  down += "─".repeat(width - 2) + "┘\n";
-  center += " ".repeat(width - 2) + "│\n";
-  height > 2
-    ? (rect += up + center.repeat(height - 2) + down)
-    : (rect += up + down);
-  return rect;
+  let up = "┌" + "─".repeat(width - 2) + "┐\n",
+    center = "│" + " ".repeat(width - 2) + "│\n",
+    down = "└" + "─".repeat(width - 2) + "┘\n";
+  return height > 2 ? up + center.repeat(height - 2) + down : up + down;
 }
 
 /**
@@ -247,7 +242,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  return typeof value == "string" || value instanceof String ? true : false; // instanseof for "new String(...)" variant
+  return typeof value == "string" || value instanceof String; // instanseof for "new String(...)" variant
 }
 
 /**

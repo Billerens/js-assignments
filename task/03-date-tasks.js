@@ -54,19 +54,10 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-  var year = date.getUTCFullYear();
-
-  var ans;
-  ans =
-    year % 4 != 0
-      ? false
-      : year % 100 != 0
-      ? true
-      : year % 400 != 0
-      ? false
-      : true;
-
-  return ans;
+  return (
+    (date.getFullYear() % 4 == 0 && date.getFullYear() % 100 != 0) ||
+    date.getFullYear() % 400 == 0
+  );
 }
 
 /**
@@ -85,18 +76,7 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-  var time = endDate.getTime() - startDate.getTime();
-
-  var milliseconds = time.toString().slice(-3),
-    seconds = Math.floor((time / 1000) % 60),
-    minutes = Math.floor((time / (1000 * 60)) % 60),
-    hours = Math.floor((time / (1000 * 60 * 60)) % 24);
-
-  hours = hours < 10 ? "0" + hours : hours;
-  minutes = minutes < 10 ? "0" + minutes : minutes;
-  seconds = seconds < 10 ? "0" + seconds : seconds;
-
-  return `${hours}:${minutes}:${seconds}.${milliseconds}`;
+  return new Date(endDate - startDate).toISOString().substr(-13, 12);
 }
 
 /**
@@ -113,10 +93,10 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-  var hoursAngle = date.getUTCHours() * 30 + date.getMinutes() * 0.5;
-  var minutesAngle = date.getUTCMinutes() * 6;
+  let hoursAngle = date.getUTCHours() * 30 + date.getMinutes() * 0.5;
+  let minutesAngle = date.getUTCMinutes() * 6;
 
-  var angle = Math.abs(hoursAngle - minutesAngle);
+  let angle = Math.abs(hoursAngle - minutesAngle);
 
   while (angle > 180 || angle < 0) angle = Math.abs(360 - angle);
 
